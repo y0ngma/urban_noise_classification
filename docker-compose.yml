@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  nia_noise:
+    container_name: nia_noise
+    restart: always
+    ipc: host
+    user: "${USERID}:${USERID}"
+    build:
+      context: .
+      args:
+        - USERID=${USERID}
+        - GROUPID=${GROUPID}
+
+    # [주의]아래 마운트 경로 변경시 local 경로만 변경 {local}:{container}
+    volumes:
+      - /mnt/data/NIA:/mnt/data
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+# docker-compose.yml 마운트경로 수정 후 이 파일이 있는 경로에서 다음을 입력
+# USERID="$(id -u)" GROUPID="$(id -g)" docker-compose up -d --build
