@@ -380,3 +380,7 @@
         ```
 
 -----------------------------------------------------------------------------
+
+## License
+Copyright (c) 2022 Gnewsoft
+SPDX-License-Identifier: MIT
